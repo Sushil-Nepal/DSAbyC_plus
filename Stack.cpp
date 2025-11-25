@@ -9,40 +9,12 @@ class Stack{
         top=-1;
         stack[MAX];
     }
-    int isFull(){
-        return (top==MAX-1);
-    }
-    int isEmpty(){
-        return (top==-1);
-    }
-    int push(int value){
-        if(isFull()){
-            printf("\nStack is Full\n");
-            return 0;
-        }
-        stack[++top]=value;
-        return 1;
-    }
-    int pop(){
-        if(isEmpty()){
-            printf("\nStack is Empty:\n");
-        }
-        return stack[top--];
-    }
-    int peak(){
-        if(isEmpty()){
-            printf("\n Stack is Empty:\n");
-        }
-        return stack[top];
-    }
-
-    void display(){
-        printf("[");
-        for(int i=0;i<=top;i++){
-            printf("%d,",stack[i]);
-        }
-        printf("]\n");
-    }
+    int isFull();
+    int isEmpty();
+    int push(int value);
+    int pop();
+    int peak();
+    void display();
 };
 int main(){
     int value,choice;
@@ -67,12 +39,20 @@ int main(){
                 printf("\nPush Sucessfully\n");
                 break;
             case 2:
-                value=s.pop();
-                printf("\nPop Value is:%d\n",value);
+                if(!s.isEmpty()){
+                    value=s.pop();
+                    printf("\nPop Value is:%d\n",value);
+                }else{
+                    printf("\nStack is Empty!");
+                }
                 break;
             case 3:
-                value=s.peak();
-                printf("Peak Value is:%d \n",value);
+                if(!s.isEmpty()){
+                    value=s.peak();
+                    printf("Peak Value is:%d \n",value);
+                }else{
+                    printf("Stack is Empty!");
+                }
                 break;
             case 4:
                 printf("Stack is:");
@@ -83,4 +63,32 @@ int main(){
         }
     }
     return 0;
+}
+int Stack::isFull(){
+    return (top==MAX-1);
+}
+int Stack:: isEmpty(){
+    return (top==-1);
+}
+int Stack::push(int value){
+    if(isFull()){
+        printf("\nStack is Full\n");
+        return 0;
+    }
+    stack[++top]=value;
+    return 1;
+}
+int Stack::pop(){
+    return stack[top--];
+}
+int Stack::peak(){
+    return stack[top];
+}
+
+void Stack::display(){
+    printf("[");
+        for(int i=0;i<=top;i++){
+            printf("%d,",stack[i]);
+        }
+    printf("]\n");
 }
