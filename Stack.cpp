@@ -1,9 +1,10 @@
 #include<iostream>
 #define MAX 5
 using namespace std;
+template <typename T>
 class Stack{
-   int stack[MAX];
-   int top;
+   T stack[MAX];
+   T top;
    public:
     Stack(){
         top=-1;
@@ -11,84 +12,81 @@ class Stack{
     }
     int isFull();
     int isEmpty();
-    int push(int value);
+    int push();
     int pop();
     int peak();
     void display();
 };
 int main(){
-    int value,choice;
-    Stack s;
+    int choice;
+    Stack<char> s;
     while(1){
-        printf("\n=====Stack Menu=====");
-        printf("\n 1.Push\n 2.pop\n 3.peak \n 4.display \n 5.exit\n");
-        printf("====================\n");
-        printf("Choose the Option");
+        cout<<"\n=====Stack Menu=====";
+        cout<<"\n 1.Push\n 2.pop\n 3.peak \n 4.display \n 5.exit\n";
+        cout<<"====================\n";
+        cout<<"Choose the Option";
+        cin>>choice;
         if(choice==5){
             break;
         }
-        scanf("%d",&choice);
         switch(choice){
             case 1:
-                printf("\nEnter the value to be Pushed:");
-                scanf("%d",&value);
-                if(!s.push(value)){
-                    printf("\nFailed to Push\n");
-                    break;
-                }
-                printf("\nPush Sucessfully\n");
+                s.push();
                 break;
             case 2:
-                if(!s.isEmpty()){
-                    value=s.pop();
-                    printf("\nPop Value is:%d\n",value);
-                }else{
-                    printf("\nStack is Empty!");
-                }
+                s.pop();
                 break;
             case 3:
-                if(!s.isEmpty()){
-                    value=s.peak();
-                    printf("Peak Value is:%d \n",value);
-                }else{
-                    printf("Stack is Empty!");
-                }
+                s.peak();
                 break;
             case 4:
-                printf("Stack is:");
+                cout<<"Stack is:";
                  s.display();
                 break;
             default:
-                printf(".....Invalid Input.....");    
+                cout<<".....Invalid Input.....";    
         }
     }
     return 0;
 }
-int Stack::isFull(){
+template <typename T>
+int Stack<T>::isFull(){
     return (top==MAX-1);
 }
-int Stack:: isEmpty(){
+template <typename T>
+int Stack<T>:: isEmpty(){
     return (top==-1);
 }
-int Stack::push(int value){
+template <typename T>
+int Stack<T>::push(){
     if(isFull()){
-        printf("\nStack is Full\n");
+        cout<<"\nStack is Full\nCan Not pushed\n";
         return 0;
-    }
-    stack[++top]=value;
+    }cout<<"Enter value to be pushed:";
+    cin>>stack[++top];
     return 1;
 }
-int Stack::pop(){
-    return stack[top--];
+template <typename T>
+int Stack<T>::pop(){
+    if(!isEmpty()){
+        cout<<"pop value is:"<<stack[top--];
+    }else{
+        cout<<"Stack Is Empty";
+    }
 }
-int Stack::peak(){
-    return stack[top];
+template <typename T>
+int Stack<T>::peak(){
+    if(!isEmpty()){
+        cout<<"Peak value is:"<<stack[top];
+    }else{
+        cout<<"Stack Is Empty";
+    }
 }
-
-void Stack::display(){
-    printf("[");
+template <typename T>
+void Stack<T>::display(){
+    cout<<"[";
         for(int i=0;i<=top;i++){
-            printf("%d,",stack[i]);
+            cout<<stack[i]<<",";
         }
-    printf("]\n");
+    cout<<"]\n";
 }
